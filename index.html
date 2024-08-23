@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Formula Calculator</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            background: url("/assets/Background.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+        .form-container {
+            max-width: 600px;
+            width: 100%;
+            margin: auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f8f9fa;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .form-label {
+            font-weight: 600;
+            display: block;
+            text-align: center; 
+            margin-bottom: 0.5rem; 
+        }
+        .form-control {
+            height: calc(2.5rem + 2px);
+            font-size: 1.25rem;
+            padding: 0.75rem;
+            border-radius: 0.375rem; 
+            width: 100%; 
+            margin-bottom: 1rem; 
+        }
+        #result {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #007bff;
+            padding: 10px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            background-color: #e9ecef;
+            text-align: center; 
+        }
+        .btn-primary {
+            font-size: 1.25rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%; 
+        }
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="text-center mb-4">Quadratic Formula Calculator</h2>
+        <form id="quadraticForm">
+            <div class="mb-3">
+                <label for="a" class="form-label">Coefficient a</label>
+                <input type="number" class="form-control" id="a" placeholder="Enter coefficient a" required>
+            </div>
+            <div class="mb-3">
+                <label for="b" class="form-label">Coefficient b</label>
+                <input type="number" class="form-control" id="b" placeholder="Enter coefficient b" required>
+            </div>
+            <div class="mb-3">
+                <label for="c" class="form-label">Coefficient c</label>
+                <input type="number" class="form-control" id="c" placeholder="Enter coefficient c" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </form>
+        <div id="result" class="mt-4"></div>
+    </div>
+    
+    <script>
+        document.getElementById('quadraticForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const a = parseFloat(document.getElementById('a').value);
+            const b = parseFloat(document.getElementById('b').value);
+            const c = parseFloat(document.getElementById('c').value);
+            
+            if (a === 0) {
+                document.getElementById('result').innerHTML = `<div style="color: red; font-size: 1.5rem;">Coefficient 'a' cannot be zero in a quadratic equation.</div>`;
+                return; // Stop further execution
+            }
+            
+            const discriminant = b * b - 4 * a * c;
+            let resultText = '';
+            
+            if (discriminant > 0) {
+                const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                resultText = `Roots are real and distinct: x = { ${root1.toFixed(2)}, ${root2.toFixed(2)} }`;
+            } 
+            else if (discriminant === 0) {
+                const root = -b / (2 * a);
+                resultText = `Root is real and repeated: x = { ${root.toFixed(2)}, ${root.toFixed(2)} }`;
+            } 
+            else {
+                const realPart = (-b / (2 * a)).toFixed(2);
+                const imaginaryPart = (Math.sqrt(-discriminant) / (2 * a)).toFixed(2);
+                resultText = `Roots are complex: x = { ${realPart} + ${imaginaryPart}i, ${realPart} - ${imaginaryPart}i }`;
+            }
+            document.getElementById('result').innerHTML = `<div>${resultText}</div>`;
+        });
+    </script>
+</body>
+</html>
