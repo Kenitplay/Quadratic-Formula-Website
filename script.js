@@ -7,7 +7,7 @@ document.getElementById('quadraticForm').addEventListener('submit', function(eve
     
     if (a === 0) {
         document.getElementById('result').innerHTML = `<div style="color: red; font-size: 1.5rem;">Coefficient 'a' cannot be zero in a quadratic equation.</div>`;
-        return; // Stop further execution
+        return; 
     }
     
     const discriminant = b * b - 4 * a * c;
